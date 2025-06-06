@@ -71,4 +71,4 @@
 │   ├── main.py
 ├── clean-tree.txt
 ├── cleanTree.ps1
-├── requirments.txt
+├── requirements.txt

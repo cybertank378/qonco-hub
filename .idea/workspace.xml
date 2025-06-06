@@ -45,7 +45,7 @@
       <change afterPath="$PROJECT_DIR$/app/routes/stream.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/schemas/chat.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/services/ollama_model_selector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirments.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
