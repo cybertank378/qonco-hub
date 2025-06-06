@@ -8,11 +8,17 @@ from app.modules.chat.infrastructure.chat_provider_selector import get_resilient
 from app.modules.chat.application.usecases import ChatService
 from app.core.tools.safety_rating import generate_default_safety_ratings
 
-# Import semua service module
-from app.modules.vision.application.usecases import process_vision
-from app.modules.code.application.usecases import run_code
-from app.modules.audio.application.usecases import generate_audio
-from app.modules.content.application.usecases import generate_content
+# Import service classes
+from app.modules.vision.application.usecases import VisionService
+from app.modules.vision.infrastructure.image_processor import DefaultVisionProcessor
+from app.modules.code.application.usecases import CodeService
+from app.modules.code.domain.entities import CodeSnippet
+from app.modules.audio.application.usecases import AudioService
+from app.modules.audio.infrastructure.tts_engine import GoogleTextToSpeech
+from app.modules.content.application.usecases import ContentService
+from app.modules.content.domain.entities import ContentPrompt
+from app.modules.content.infrastructure.content_generator import DummyContentGenerator
+import tempfile
 
 router = APIRouter()
 
@@ -29,15 +35,29 @@ async def unified_chat(
     # 🔍 Deteksi task secara otomatis
     task = detect_task_type(prompt, file_type)
 
-    # 🚀 Jalankan usecase sesuai task
-    if task == "vision":
-        result = await process_vision(prompt, file)
+    # 🚀 Jalankan service sesuai task
+    if task == "vision" and file:
+        tmp = tempfile.NamedTemporaryFile(delete=False)
+        tmp.write(await file.read())
+        tmp.flush()
+        vision_service = VisionService(DefaultVisionProcessor())
+        result_obj = vision_service.analyze(tmp.name)
+        result = result_obj.text
+        tmp.close()
     elif task == "code":
-        result = run_code(prompt, file)
+        code_text = (await file.read()).decode() if file else prompt
+        snippet = CodeSnippet(language="python", source_code=code_text)
+        code_service = CodeService()
+        result_obj = code_service.run(snippet)
+        result = result_obj.output if not result_obj.error else result_obj.error
     elif task == "audio":
-        result = generate_audio(prompt)
+        audio_service = AudioService(GoogleTextToSpeech())
+        audio_resp = audio_service.generate(prompt)
+        result = audio_resp.audio_path
     elif task == "content":
-        result = generate_content(prompt)
+        content_service = ContentService(DummyContentGenerator())
+        cp = ContentPrompt(topic=prompt, content_type="script")
+        result = content_service.generate(cp)
     else:
         # Default ke chat: pakai fallback provider
         provider, built_prompt = get_resilient_provider(prompt)
