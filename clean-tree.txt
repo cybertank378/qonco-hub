@@ -1,0 +1,74 @@
+├── app
+│   ├── core
+│   │   ├── adapters
+│   │   │   ├── ollama_adapter.py
+│   │   │   ├── openai_adapter.py
+│   │   │   ├── vertex_adapter.py
+│   │   ├── builder
+│   │   │   ├── project_tree_builder.py
+│   │   │   ├── prompt_builder.py
+│   │   │   ├── template_builder.py
+│   │   ├── tools
+│   │   │   ├── format_code.py
+│   │   │   ├── safety_rating.py
+│   │   │   ├── sanitize_input.py
+│   │   │   ├── validate_request.py
+│   │   ├── loader.py
+│   ├── modules
+│   │   ├── audio
+│   │   │   ├── application
+│   │   │   │   ├── usecases.py
+│   │   │   ├── domain
+│   │   │   │   ├── entities.py
+│   │   │   ├── infrastructure
+│   │   │   │   ├── interfaces.py
+│   │   │   │   ├── tts_engine.py
+│   │   ├── chat
+│   │   │   ├── application
+│   │   │   │   ├── usecases.py
+│   │   │   ├── domain
+│   │   │   │   ├── entities.py
+│   │   │   ├── infrastructure
+│   │   │   │   ├── chat_provider_selector.py
+│   │   │   │   ├── interfaces.py
+│   │   ├── code
+│   │   │   ├── application
+│   │   │   │   ├── usecases.py
+│   │   │   ├── domain
+│   │   │   │   ├── entities.py
+│   │   │   ├── infrastructure
+│   │   │   │   ├── code_executor.py
+│   │   │   │   ├── interfaces.py
+│   │   │   │   ├── jdoodle_executor.py
+│   │   ├── content
+│   │   │   ├── application
+│   │   │   │   ├── usecases.py
+│   │   │   ├── domain
+│   │   │   │   ├── entities.py
+│   │   │   ├── infrastructure
+│   │   │   │   ├── content_generator.py
+│   │   │   │   ├── interfaces.py
+│   │   ├── vision
+│   │   │   ├── application
+│   │   │   │   ├── usecases.py
+│   │   │   ├── domain
+│   │   │   │   ├── entities.py
+│   │   │   ├── infrastructure
+│   │   │   │   ├── image_processor.py
+│   │   │   │   ├── interfaces.py
+│   ├── routes
+│   │   ├── audio.py
+│   │   ├── chat.py
+│   │   ├── code.py
+│   │   ├── generator.py
+│   │   ├── stream.py
+│   │   ├── vision.py
+│   ├── schemas
+│   │   ├── chat.py
+│   ├── services
+│   │   ├── ai_response.py
+│   │   ├── stream_response.py
+│   ├── main.py
+├── clean-tree.txt
+├── cleanTree.ps1
+├── requirments.txt
